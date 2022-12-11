@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { Dimensions, StyleSheet, Text, View, TextInput } from 'react-native';
 import styles from './styles';
-import Svg, { Image } from 'react-native-svg';
+import Svg, { Image, Ellipse, ClipPath } from 'react-native-svg';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -15,20 +15,33 @@ export default function App() {
 
   const imageAnimatedStyle = useAnimatedStyle(() => {
     // Image will pull up once button is clicked
-    const interplation = interpolate(
+    const interpolation = interpolate(
       imagePosition.value,
       [0, 1],
       [-height / 2, 0]
     );
-
     return {
-      transform: [{ translateY: withTiming(interplation, { duration: 1000 }) }],
+      transform: [
+        { translateY: withTiming(interpolation, { duration: 1000 }) },
+      ],
     };
   });
+
+  const loginHandler = () => {
+    imagePosition.value = 0;
+  };
+
+  const regiserHandler = () => {
+    imagePosition.value = 0;
+  };
+
   return (
     <View style={styles.container}>
       <Animated.View style={(StyleSheet.absoluteFill, imageAnimatedStyle)}>
         <Svg height={height} width={width}>
+          <ClipPath id="clipPathId">
+            <Ellipse />
+          </ClipPath>
           <Image
             href={require('./assets/login-background.jpg')}
             width={width}
@@ -41,12 +54,12 @@ export default function App() {
         </View>
       </Animated.View>
       <View style={styles.bottomContainer}>
-        <View style={styles.button}>
+        <Pressable style={styles.button} onPress={loginHandler}>
           <Text style={styles.buttonText}>LOG IN</Text>
-        </View>
-        <View style={styles.button}>
+        </Pressable>
+        <Pressable style={styles.button} onPress={registerHandler}>
           <Text style={styles.buttonText}>REGISTER</Text>
-        </View>
+        </Pressable>
         {/* <View style={styles.formInputContainer}>
           <TextInput
             placeholder="Email"
