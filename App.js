@@ -15,11 +15,14 @@ import Animated, {
   interpolate,
   withTiming,
   withDelay,
+  withSequence,
+  withSpring,
 } from 'react-native-reanimated';
 
 export default function App() {
   const { height, width } = Dimensions.get('window');
   const imagePosition = useSharedValue(1);
+  const formButtonScale = useSharedValue(1);
   const [isRegistering, setIsRegistering] = useState(false);
 
   const imageAnimatedStyle = useAnimatedStyle(() => {
@@ -65,12 +68,24 @@ export default function App() {
     };
   });
 
+  const formButtonAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: formButtonScale.value }],
+    };
+  });
+
   const loginHandler = () => {
     imagePosition.value = 0;
+    if (isRegistering) {
+      setIsRegistering(false);
+    }
   };
 
   const registerHandler = () => {
     imagePosition.value = 0;
+    if (!isRegistering) {
+      setIsRegistering(true);
+    }
   };
 
   return (
@@ -111,21 +126,33 @@ export default function App() {
             placeholderTextColor="black"
             style={styles.textInput}
           />
-          <TextInput
-            placeholder="Full Name"
-            placeholderTextColor="black"
-            style={styles.textInput}
-          />
+          {isRegistering && (
+            <TextInput
+              placeholder="Full Name"
+              placeholderTextColor="black"
+              style={styles.textInput}
+            />
+          )}
+
           <TextInput
             placeholder="Password"
             placeholderTextColor="black"
             style={styles.textInput}
           />
-          <View style={styles.formButton}>
-            <Text style={styles.buttonText}>
-              {isRegistering ? 'REGISTER' : 'LOG IN'}
-            </Text>
-          </View>
+          <Animated.View style={[styles.formButton, formButtonAnimatedStyle]}>
+            <Pressable
+              onPress={() =>
+                (formButtonScale.value = withSequence(
+                  withSpring(1.5),
+                  withSpring(1)
+                ))
+              }
+            >
+              <Text style={styles.buttonText}>
+                {isRegistering ? 'REGISTER' : 'LOG IN'}
+              </Text>
+            </Pressable>
+          </Animated.View>
         </Animated.View>
       </View>
     </View>
