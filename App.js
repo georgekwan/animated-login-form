@@ -89,7 +89,7 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
+    <Animated.View style={styles.container}>
       <Animated.View style={[StyleSheet.absoluteFill, imageAnimatedStyle]}>
         <Svg height={height + 100} width={width}>
           <ClipPath id="clipPathId">
@@ -133,7 +133,6 @@ export default function App() {
               style={styles.textInput}
             />
           )}
-
           <TextInput
             placeholder="Password"
             placeholderTextColor="black"
@@ -155,6 +154,6 @@ export default function App() {
           </Animated.View>
         </Animated.View>
       </View>
-    </View>
+    </Animated.View>
   );
 }
