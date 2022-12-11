@@ -44,9 +44,10 @@ export default function App() {
           </ClipPath>
           <Image
             href={require('./assets/login-background.jpg')}
-            width={width}
-            height={height}
+            width={width + 100}
+            height={height + 100}
             preserveAspectRatio="xMidYMid slice"
+            clipPath="url(#clipPathId)"
           />
         </Svg>
         <View style={styles.closeButtonContainer}>

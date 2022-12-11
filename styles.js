@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     borderRadius: 20,
+    top: -20,
   },
 });
 
