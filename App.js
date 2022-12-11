@@ -1,4 +1,4 @@
-import { StatusBar } from 'expo-status-bar';
+import React, { useState } from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -20,6 +20,7 @@ import Animated, {
 export default function App() {
   const { height, width } = Dimensions.get('window');
   const imagePosition = useSharedValue(1);
+  const [isRegistering, setIsRegistering] = useState(false);
 
   const imageAnimatedStyle = useAnimatedStyle(() => {
     // Image will pull up once button is clicked
@@ -121,7 +122,9 @@ export default function App() {
             style={styles.textInput}
           />
           <View style={styles.formButton}>
-            <Text style={styles.buttonText}>LOG IN</Text>
+            <Text style={styles.buttonText}>
+              {isRegistering ? 'REGISTER' : 'LOG IN'}
+            </Text>
           </View>
         </Animated.View>
       </View>
