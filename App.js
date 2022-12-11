@@ -60,7 +60,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Animated.View style={(StyleSheet.absoluteFill, imageAnimatedStyle)}>
+      <Animated.View style={[StyleSheet.absoluteFill, imageAnimatedStyle]}>
         <Svg height={height + 100} width={width}>
           <ClipPath id="clipPathId">
             <Ellipse cx={width / 2} rx={height} ry={height + 100} />
@@ -74,7 +74,7 @@ export default function App() {
           />
         </Svg>
         <Animated.View
-          style={(styles.closeButtonContainer, closeButtonContainerStyle)}
+          style={[styles.closeButtonContainer, closeButtonContainerStyle]}
         >
           <Text onPress={() => (imagePosition.value = 1)}>X</Text>
         </Animated.View>
