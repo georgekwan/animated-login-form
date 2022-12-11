@@ -44,7 +44,7 @@ export default function App() {
     };
   });
 
-  const closeButtonContainer = useAnimatedStyle(() => {
+  const closeButtonContainerStyle = useAnimatedStyle(() => {
     return {
       opacity: withTiming(imagePosition.value === 1 ? 0 : 1, { duration: 800 }),
     };
