@@ -2,13 +2,32 @@ import { StatusBar } from 'expo-status-bar';
 import { Dimensions, StyleSheet, Text, View, TextInput } from 'react-native';
 import styles from './styles';
 import Svg, { Image } from 'react-native-svg';
-import Animated, { useSharedValue } from 'react-native-reanimated';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  interpolate,
+  withTiming,
+} from 'react-native-reanimated';
 
 export default function App() {
   const { height, width } = Dimensions.get('window');
+  const imagePosition = useSharedValue(1);
+
+  const imageAnimatedStyle = useAnimatedStyle(() => {
+    // Image will pull up once button is clicked
+    const interplation = interpolate(
+      imagePosition.value,
+      [0, 1],
+      [-height / 2, 0]
+    );
+
+    return {
+      transform: [{ translateY: withTiming(interplation, { duration: 1000 }) }],
+    };
+  });
   return (
     <View style={styles.container}>
-      <Animated.View style={StyleSheet.absoluteFill}>
+      <Animated.View style={(StyleSheet.absoluteFill, imageAnimatedStyle)}>
         <Svg height={height} width={width}>
           <Image
             href={require('./assets/login-background.jpg')}
