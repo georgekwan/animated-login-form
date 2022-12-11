@@ -27,6 +27,18 @@ export default function App() {
     };
   });
 
+  const buttonsAnimatedStyle = useAnimatedStyle(() => {
+    const interpolation = interpolate(imagePosition.value, [0, 1], [250, 0]);
+    return {
+      opacity: withTiming(imagePosition.value, { duration: 500 }),
+      transforms: [
+        { translateY: withTiming(interpolation, { duration: 1000 }) },
+      ],
+    };
+  });
+
+  const closeButtonContainer = useAnimatedStyle(() => {});
+
   const loginHandler = () => {
     imagePosition.value = 0;
   };
@@ -50,17 +62,21 @@ export default function App() {
             clipPath="url(#clipPathId)"
           />
         </Svg>
-        <View style={styles.closeButtonContainer}>
+        <Animated.View style={styles.closeButtonContainer}>
           <Text>X</Text>
-        </View>
+        </Animated.View>
       </Animated.View>
       <View style={styles.bottomContainer}>
-        <Pressable style={styles.button} onPress={loginHandler}>
-          <Text style={styles.buttonText}>LOG IN</Text>
-        </Pressable>
-        <Pressable style={styles.button} onPress={registerHandler}>
-          <Text style={styles.buttonText}>REGISTER</Text>
-        </Pressable>
+        <Animated.View style={buttonsAnimatedStyle}>
+          <Pressable style={styles.button} onPress={loginHandler}>
+            <Text style={styles.buttonText}>LOG IN</Text>
+          </Pressable>
+        </Animated.View>
+        <Animated.View style={buttonsAnimatedStyle}>
+          <Pressable style={styles.button} onPress={registerHandler}>
+            <Text style={styles.buttonText}>REGISTER</Text>
+          </Pressable>
+        </Animated.View>
         {/* <View style={styles.formInputContainer}>
           <TextInput
             placeholder="Email"
