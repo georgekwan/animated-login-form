@@ -14,6 +14,7 @@ import Animated, {
   useAnimatedStyle,
   interpolate,
   withTiming,
+  withDelay,
 } from 'react-native-reanimated';
 
 export default function App() {
@@ -45,8 +46,21 @@ export default function App() {
   });
 
   const closeButtonContainerStyle = useAnimatedStyle(() => {
+    const interpolation = interpolate(imagePosition.value, [0, 1], [180, 360]);
     return {
       opacity: withTiming(imagePosition.value === 1 ? 0 : 1, { duration: 800 }),
+      transforms: [
+        { rotate: withTiming(interpolation + 'deg', { duration: 1000 }) },
+      ],
+    };
+  });
+
+  const formAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity:
+        imagePosition.value === 0
+          ? withDelay(500, withTiming(1, { duration: 800 }))
+          : withTiming(0, { duration: 300 }),
     };
   });
 
@@ -90,7 +104,7 @@ export default function App() {
             <Text style={styles.buttonText}>REGISTER</Text>
           </Pressable>
         </Animated.View>
-        {/* <View style={styles.formInputContainer}>
+        <Animated.View style={[styles.formInputContainer, formAnimatedStyle]}>
           <TextInput
             placeholder="Email"
             placeholderTextColor="black"
@@ -109,7 +123,7 @@ export default function App() {
           <View style={styles.formButton}>
             <Text style={styles.buttonText}>LOG IN</Text>
           </View>
-        </View> */}
+        </Animated.View>
       </View>
     </View>
   );
