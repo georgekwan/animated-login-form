@@ -1,5 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
-import { Dimensions, StyleSheet, Text, View, TextInput } from 'react-native';
+import {
+  Dimensions,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Pressable,
+} from 'react-native';
 import styles from './styles';
 import Svg, { Image, Ellipse, ClipPath } from 'react-native-svg';
 import Animated, {
@@ -37,13 +44,17 @@ export default function App() {
     };
   });
 
-  const closeButtonContainer = useAnimatedStyle(() => {});
+  const closeButtonContainer = useAnimatedStyle(() => {
+    return {
+      opacity: withTiming(imagePosition.value === 1 ? 0 : 1, { duration: 800 }),
+    };
+  });
 
   const loginHandler = () => {
     imagePosition.value = 0;
   };
 
-  const regiserHandler = () => {
+  const registerHandler = () => {
     imagePosition.value = 0;
   };
 
@@ -62,8 +73,10 @@ export default function App() {
             clipPath="url(#clipPathId)"
           />
         </Svg>
-        <Animated.View style={styles.closeButtonContainer}>
-          <Text>X</Text>
+        <Animated.View
+          style={(styles.closeButtonContainer, closeButtonContainerStyle)}
+        >
+          <Text onPress={() => (imagePosition.value = 1)}>X</Text>
         </Animated.View>
       </Animated.View>
       <View style={styles.bottomContainer}>
