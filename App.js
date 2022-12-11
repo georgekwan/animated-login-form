@@ -38,9 +38,9 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Animated.View style={(StyleSheet.absoluteFill, imageAnimatedStyle)}>
-        <Svg height={height} width={width}>
+        <Svg height={height + 100} width={width}>
           <ClipPath id="clipPathId">
-            <Ellipse cx={width / 2} rx={height} ry={height} />
+            <Ellipse cx={width / 2} rx={height} ry={height + 100} />
           </ClipPath>
           <Image
             href={require('./assets/login-background.jpg')}
