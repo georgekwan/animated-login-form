@@ -2,13 +2,14 @@ import { StatusBar } from 'expo-status-bar';
 import { Dimensions, StyleSheet, Text, View, TextInput } from 'react-native';
 import styles from './styles';
 import Svg, { Image } from 'react-native-svg';
+import Animated, { useSharedValue } from 'react-native-reanimated';
 
 export default function App() {
   const { height, width } = Dimensions.get('window');
   return (
     <View style={styles.container}>
-      <View style={StyleSheet.absoluteFill}>
-        <Svg height={height / 2} width={width}>
+      <Animated.View style={StyleSheet.absoluteFill}>
+        <Svg height={height} width={width}>
           <Image
             href={require('./assets/login-background.jpg')}
             width={width}
@@ -19,15 +20,15 @@ export default function App() {
         <View style={styles.closeButtonContainer}>
           <Text>X</Text>
         </View>
-      </View>
+      </Animated.View>
       <View style={styles.bottomContainer}>
-        {/* <View style={styles.button}>
+        <View style={styles.button}>
           <Text style={styles.buttonText}>LOG IN</Text>
         </View>
         <View style={styles.button}>
           <Text style={styles.buttonText}>REGISTER</Text>
-        </View> */}
-        <View style={styles.formInputContainer}>
+        </View>
+        {/* <View style={styles.formInputContainer}>
           <TextInput
             placeholder="Email"
             placeholderTextColor="black"
@@ -46,7 +47,7 @@ export default function App() {
           <View style={styles.formButton}>
             <Text style={styles.buttonText}>LOG IN</Text>
           </View>
-        </View>
+        </View> */}
       </View>
     </View>
   );
